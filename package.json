@@ -1,0 +1,20 @@
+{
+  "name": "jcom",
+  "version": "1.0.0",
+  "description": "javascript shell with object and structured document semantics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shell"
+  ],
+  "author": "Anthony DeDominic",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "pegjs": "^0.10.0"
+  },
+  "dependencies": {
+    "lodash": "^4.16.6"
+  }
+}
