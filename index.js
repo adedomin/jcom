@@ -19,8 +19,8 @@ var SHELL_VARS = {}
 
 var readline = require('readline'),
     parser = require('./parse/line').parse,
-    pipeline = require('./lib/pipeline'),
-    builtins = require('./lib/core-builtins')
+    builtins = require('./lib/core-builtins'),
+    pipeline = require('./lib/pipeline')(builtins, SHELL_VARS)
 
 var templ = (line) => `(function() {
     with(this)
@@ -50,7 +50,7 @@ rl.on('line', line => {
         return
     }
 
-    var pipe = pipeline(linebuffer, null, builtins)
+    var pipe = pipeline(linebuffer, null, builtins, SHELL_VARS)
     if (pipe) pipe.pipe(process.stdout)
     linebuffer = ''
 })
