@@ -35,11 +35,18 @@ var rl = readline.createInterface({
 var linebuffer = ''
 rl.on('line', line => {
     if (line.slice(-1) == '\\') {
-        linebuffer += line.slice(0, -2)
+        linebuffer += line.slice(0, -1)+'\n'
         return
     }
     linebuffer += line
-    linebuffer = eval(templ(linebuffer))
+    try {
+        linebuffer = eval(templ(linebuffer))
+    }
+    catch (e) {
+        console.log(e)
+        linebuffer = ''
+        return
+    }
     
     try {
         linebuffer = parser(linebuffer)
@@ -51,6 +58,8 @@ rl.on('line', line => {
     }
 
     var pipe = pipeline(linebuffer, null, builtins, SHELL_VARS)
-    if (pipe) pipe.pipe(process.stdout)
+    if (pipe) {
+        pipe.on('data', (data) => console.log(data.toString()))
+    }
     linebuffer = ''
 })

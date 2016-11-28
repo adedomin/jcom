@@ -7,7 +7,7 @@ start
 DIGIT  = [0-9]
 HEXDIG = [0-9a-f]i
 // variable name rules
-ATOM = [-_0-9a-zA-Z]
+ATOM = [-_0-9a-zA-Z\.]
 // ignore whitespace
 ws "white space" = [ \t\r\n]* { return null }
 // at least one SPACE must exist
@@ -33,6 +33,7 @@ unescapedS = [^\0-\x1F\x27]
 // this rule maps to escape sequences for double quotes
 char
   = unescaped
+  / [ \r\n]
   / escape
     sequence:(
         '"'
