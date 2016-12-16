@@ -1,0 +1,12 @@
+# jcom
+cat package.json | json --to-var jcom
+echo "${jcom.name} by ${jcom.author}"
+
+jcom by Anthony DeDominic
+
+# bash
+JCOM_NAME=$(jq -r '.name' < package.json)
+JCOM_AUTHOR=$(jq -r '.author' < package.json)
+echo "$JCOM_NAME by $JCOM_AUTHOR"            
+
+jcom by Anthony DeDominic

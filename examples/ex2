@@ -1,0 +1,29 @@
+# jcom
+curl 'https://home.dedominic.pw/monjs/api/v1/home/dedominic' | json --to-var host
+echo "${ host.address }"
+
+dedominic.pw
+
+noop "${ host.address = 'ghetty.space' }"
+json --from-var host
+
+{"name":"dedominic.pw","address":"ghetty.space","extra_vars":{"smtp_port":"465","imap_port":"993"},"_id":"9c17f1e8"}
+
+json --from-var host | curl -X PUT 'https://home.dedominic.pw/monjs/api/v1/host' -H 'Content-Type: application/json'
+
+{"status":"ok","msg":"Host updated successfully"}
+
+# bash
+HOST=$(curl 'https://home.dedominic.pw/monjs/api/v1/host/dedominic.pw')
+jq -r '.address' <<< "$HOST"
+
+dedominic.pw
+
+HOST=$(jq '. | { name: .name, address: "ghetty.space" }' <<< "$HOST")
+echo $HOST
+
+{"name":"dedominic.pw","address":"ghetty.space"}
+
+echo $HOST | curl -X PUT -H 'Content-Type: application/json' ''https://home.dedominic.pw/monjs/api/v1/host/dedominic.pw'
+
+{"status":"ok","msg":"Host updated successfully"}
